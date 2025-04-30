@@ -9,7 +9,7 @@ SELECT
     fd.date_valid_std AS date,
     fd.city_name,
     fd.country_desc,
-    ZEROIFNULL(SUM(odv.price)) AS daily_sales,
+    ZEROIFNULL(SUM(odv.price)/1000000) AS daily_sales, -- Divide this by $1M in order to not wash out other metrics in the streamlit chart
     ROUND(AVG(fd.avg_temperature_air_2m_f),2) AS avg_temperature_fahrenheit,
     ROUND(AVG(analytics.fahrenheit_to_celsius(fd.avg_temperature_air_2m_f)),2) AS avg_temperature_celsius,
     ROUND(AVG(fd.tot_precipitation_in),2) AS avg_precipitation_inches,
