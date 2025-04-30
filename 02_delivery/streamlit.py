@@ -23,7 +23,7 @@ hamburg_weather_long = hamburg_weather.melt('DATE', var_name='Measure', value_na
 
 # Map column names to desired legend titles
 hamburg_weather_long['Measure'] = hamburg_weather_long['Measure'].replace({
-    'DAILY_SALES': 'Daily Sales ($)',
+    'DAILY_SALES': 'Daily Sales ($M)',
     'AVG_TEMPERATURE_FAHRENHEIT': 'Avg Temperature (°F)',
     'AVG_PRECIPITATION_INCHES': 'Avg Precipitation (in)',
     'MAX_WIND_SPEED_100M_MPH': 'Max Wind Speed (mph)'
