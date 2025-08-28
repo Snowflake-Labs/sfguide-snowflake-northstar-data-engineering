@@ -1,6 +1,7 @@
 -- Data Quality Validation Functions for Snowflake Data Pipeline
 -- These functions provide comprehensive data quality checks
 
+
 -- Function to check for null values in critical columns
 CREATE OR REPLACE FUNCTION check_null_values(table_name STRING, column_name STRING)
 RETURNS TABLE (

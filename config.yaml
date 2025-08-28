@@ -123,6 +123,7 @@ monitoring:
     - type: "data_quality_failure"
       threshold: 2
       notification_channel: "email"
+     
       
     - type: "performance_degradation"
       threshold: 300  # seconds

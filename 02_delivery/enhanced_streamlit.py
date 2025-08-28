@@ -1,4 +1,5 @@
 # Enhanced Streamlit Application with Interactive Features
+
 import streamlit as st
 import altair as alt
 from snowflake.snowpark.context import get_active_session
