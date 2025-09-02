@@ -204,6 +204,7 @@ with tab2:
             fig_scatter.update_traces(marker=dict(color='lightblue', size=8))
             st.plotly_chart(fig_scatter, use_container_width=True)
 
+
 with tab3:
     st.subheader('Detailed Data Analysis')
     
@@ -270,3 +271,5 @@ with tab3:
         file_name=f'hamburg_weather_sales_{start_date}_{end_date}.csv',
         mime='text/csv'
     )
+
+    

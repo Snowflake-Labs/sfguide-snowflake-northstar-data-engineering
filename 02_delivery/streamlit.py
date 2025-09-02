@@ -1,4 +1,4 @@
-# Import Python packages
+# Python packages
 
 import streamlit as st
 import altair as alt

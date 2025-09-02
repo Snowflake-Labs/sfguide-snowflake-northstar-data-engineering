@@ -1,7 +1,7 @@
 CREATE OR REPLACE STAGE tasty_bytes.public.s3load
 url = 's3://sfquickstarts/tasty-bytes-builder-education/'
 
--- country table build
+---- country table build
 CREATE OR REPLACE TABLE tasty_bytes.raw_pos.country
 (
    country_id NUMBER(18,0),

@@ -230,9 +230,7 @@ GROUP BY cl.customer_id, cl.city, cl.country, cl.first_name,
 cl.last_name, cl.phone_number, cl.e_mail;
 
 
-/*--
-analytics view creation
---*/
+/*--analytics view creation--*/
 
 
 -- orders_v view
