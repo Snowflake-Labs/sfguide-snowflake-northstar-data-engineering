@@ -238,7 +238,6 @@ BEGIN
         CALL profile_table(table_name);
         processed_count := processed_count + 1;
     END FOR;
-    
     RETURN 'Profiling completed for ' || processed_count || ' tables';
 END;
 $$;
