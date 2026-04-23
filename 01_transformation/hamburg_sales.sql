@@ -28,8 +28,8 @@ SELECT
     TO_VARCHAR(hd.date_valid_std, 'YYYY-MM') AS yyyy_mm,
     pc.city_name AS city,
     c.country AS country_desc
-FROM Weather_Source_LLC_frostbyte.onpoint_id.history_day hd
-JOIN Weather_Source_LLC_frostbyte.onpoint_id.postal_codes pc
+FROM Pelmorex_Weather_Source_frostbyte.onpoint_id.history_day hd
+JOIN Pelmorex_Weather_Source_frostbyte.onpoint_id.postal_codes pc
     ON pc.postal_code = hd.postal_code
     AND pc.country = hd.country
 JOIN TASTY_BYTES.raw_pos.country c
