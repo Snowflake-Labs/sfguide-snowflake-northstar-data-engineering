@@ -1,0 +1,130 @@
+# Snowflake Data Pipeline Configuration
+# This file contains configuration settings for the data engineering pipeline
+
+# Database Configuration
+database:
+  name: "TASTY_BYTES"
+  schemas:
+    raw: "RAW_DATA"
+    harmonized: "HARMONIZED"
+    analytics: "ANALYTICS"
+
+# Data Sources
+data_sources:
+  weather_data:
+    table: "weather_hamburg"
+    schema: "harmonized"
+    refresh_frequency: "daily"
+    retention_days: 365
+  
+  sales_data:
+    table: "sales_data"
+    schema: "harmonized"
+    refresh_frequency: "hourly"
+    retention_days: 730
+
+# Data Quality Configuration
+data_quality:
+  validation_rules:
+    - name: "null_check"
+      type: "completeness"
+      threshold: 95  # Percentage
+      critical: true
+    
+    - name: "duplicate_check"
+      type: "uniqueness"
+      threshold: 99  # Percentage
+      critical: true
+    
+    - name: "freshness_check"
+      type: "timeliness"
+      threshold: 24  # Hours
+      critical: false
+    
+    - name: "range_validation"
+      type: "validity"
+      rules:
+        temperature_range: [-50, 150]  # Fahrenheit
+        precipitation_range: [0, 50]   # Inches
+        wind_speed_range: [0, 200]     # MPH
+        sales_range: [0, 50000000]     # USD
+
+  notification:
+    email_enabled: true
+    slack_enabled: false
+    failure_threshold: 2  # Number of consecutive failures before alert
+
+# Pipeline Configuration
+pipeline:
+  stages:
+    ingestion:
+      batch_size: 10000
+      parallel_workers: 4
+      error_handling: "continue"
+      
+    transformation:
+      warehouse_size: "MEDIUM"
+      timeout_minutes: 30
+      auto_suspend_minutes: 5
+      
+    delivery:
+      export_formats: ["csv", "json", "parquet"]
+      compression: "gzip"
+      
+  logging:
+    level: "INFO"
+    retention_days: 90
+    enable_performance_metrics: true
+
+# Streamlit App Configuration
+streamlit:
+  title: "Weather and Sales Analytics Dashboard"
+  page_config:
+    layout: "wide"
+    sidebar_state: "expanded"
+  
+  features:
+    date_filtering: true
+    metric_selection: true
+    export_data: true
+    correlation_analysis: true
+    
+  chart_config:
+    color_palette: ["#29B5E8", "#FF6F61", "#0072CE", "#FFC300"]
+    default_height: 400
+    interactive: true
+
+# Security Configuration
+security:
+  row_level_security: false
+  column_masking: false
+  audit_logging: true
+  
+# Performance Configuration
+performance:
+  query_timeout: 300  # seconds
+  result_cache_ttl: 3600  # seconds
+  auto_clustering: true
+  
+# Monitoring
+monitoring:
+  enabled: true
+  metrics:
+    - "query_execution_time"
+    - "data_freshness"
+    - "error_rates"
+    - "warehouse_utilization"
+  
+  alerts:
+    - type: "execution_failure"
+      threshold: 1
+      notification_channel: "email"
+    
+    - type: "data_quality_failure"
+      threshold: 2
+      notification_channel: "email"
+     
+      
+    - type: "performance_degradation"
+      threshold: 300  # seconds
+      notification_channel: "email"

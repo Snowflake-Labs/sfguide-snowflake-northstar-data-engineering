@@ -1,4 +1,5 @@
-# Import Python packages
+# Python packages
+
 import streamlit as st
 import altair as alt
 from snowflake.snowpark.context import get_active_session
@@ -11,7 +12,7 @@ session = get_active_session()
 st.title('Weather and Sales Trends for Hamburg, Germany')
 
 # Load the view and create a pandas dataframe 
-hamburg_weather = session.table("INSERT NAME OF VIEW HERE").select(
+hamburg_weather = session.table("tasty_bytes.harmonized.weather_hamburg").select(
     col("DATE"),
     col("DAILY_SALES"),
     col("AVG_TEMPERATURE_FAHRENHEIT"),

@@ -1,10 +1,6 @@
 USE ROLE accountadmin;
 USE DATABASE tasty_bytes;
 
-/*--
-database, schema and warehouse creation
---*/
-
 -- create raw_customer schema
 CREATE OR REPLACE SCHEMA tasty_bytes.raw_customer;
 
@@ -26,9 +22,7 @@ CREATE OR REPLACE WAREHOUSE demo_build_wh
    INITIALLY_SUSPENDED = TRUE;
 
 
-/*--
-file format and stage creation
---*/
+-- file format and stage creation
 
 
 CREATE OR REPLACE FILE FORMAT tasty_bytes.public.csv_ff
@@ -39,10 +33,6 @@ CREATE OR REPLACE STAGE tasty_bytes.public.s3load
 url = 's3://sfquickstarts/tasty-bytes-builder-education/'
 file_format = tasty_bytes.public.csv_ff;
 
-
-/*--
-raw zone table build
---*/
 
 
 -- franchise table build
@@ -166,9 +156,7 @@ CREATE OR REPLACE TABLE tasty_bytes.raw_customer.customer_loyalty
 );
 
 
-/*--
-harmonized view creation
---*/
+--harmonized view creation
 
 
 -- orders_v view
@@ -242,9 +230,7 @@ GROUP BY cl.customer_id, cl.city, cl.country, cl.first_name,
 cl.last_name, cl.phone_number, cl.e_mail;
 
 
-/*--
-analytics view creation
---*/
+/*--analytics view creation--*/
 
 
 -- orders_v view
