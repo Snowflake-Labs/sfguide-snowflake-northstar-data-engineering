@@ -1,10 +1,7 @@
--- Create a CSV file format here:
-
--- Specify the file format below:
 CREATE OR REPLACE STAGE tasty_bytes.public.s3load
 url = 's3://sfquickstarts/tasty-bytes-builder-education/'
 
--- country table build
+---- country table build
 CREATE OR REPLACE TABLE tasty_bytes.raw_pos.country
 (
    country_id NUMBER(18,0),
@@ -15,5 +12,3 @@ CREATE OR REPLACE TABLE tasty_bytes.raw_pos.country
    city VARCHAR(16777216),
    city_population VARCHAR(16777216)
 );
-
--- Use the COPY INTO command to load data into the country table:

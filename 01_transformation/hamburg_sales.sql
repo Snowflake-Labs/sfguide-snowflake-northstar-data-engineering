@@ -2,7 +2,6 @@ USE ROLE accountadmin;
 USE WAREHOUSE compute_wh;
 USE DATABASE tasty_bytes;
 
--- Query to explore sales in the city of Hamburg, Germany
 WITH _feb_date_dim AS (
     SELECT DATEADD(DAY, SEQ4(), '2022-02-01') AS date 
     FROM TABLE(GENERATOR(ROWCOUNT => 28))
@@ -36,6 +35,36 @@ JOIN TASTY_BYTES.raw_pos.country c
     ON c.iso_country = hd.country
     AND c.city = hd.city_name;
 
+    SELECT
+    dw.country_desc,
+    dw.city_name,
+    dw.date_valid_std,
+    AVG(dw.avg_temperature_air_2m_f) AS avg_temperature_air_2m_f
+FROM harmonized.daily_weather_v dw
+WHERE 1=1
+    AND dw.country_desc = 'Germany'
+    AND dw.city_name = 'Hamburg'
+    AND YEAR(date_valid_std) = '2022'
+    AND MONTH(date_valid_std) = '2' -- February
+GROUP BY dw.country_desc, dw.city_name, dw.date_valid_std
+ORDER BY dw.date_valid_std DESC;
+
+-- Query the view to explore wind speeds in Hamburg, Germany for anomalies
+SELECT
+    dw.country_desc,
+    dw.city_name,
+    dw.date_valid_std,
+    MAX(dw.max_wind_speed_100m_mph) AS max_wind_speed_100m_mph
+FROM tasty_bytes.harmonized.daily_weather_v dw
+WHERE 1=1
+    AND dw.country_desc IN ('Germany')
+    AND dw.city_name = 'Hamburg'
+    AND YEAR(date_valid_std) = '2022'
+    AND MONTH(date_valid_std) = '2' -- February
+GROUP BY dw.country_desc, dw.city_name, dw.date_valid_std
+ORDER BY dw.date_valid_std DESC;
+
+
 -- Query the view to explore daily temperatures in Hamburg, Germany for anomalies
 SELECT
     dw.country_desc,
@@ -67,7 +96,7 @@ GROUP BY dw.country_desc, dw.city_name, dw.date_valid_std
 ORDER BY dw.date_valid_std DESC;
 
 -- Create a view that tracks windspeed for Hamburg, Germany
-CREATE OR REPLACE VIEW tasty_bytes.harmonized.--add name of view
+CREATE OR REPLACE VIEW tasty_bytes.harmonized.windspeed_hamburg
     AS
 SELECT
     dw.country_desc,
